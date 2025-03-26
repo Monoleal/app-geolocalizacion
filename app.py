@@ -52,7 +52,7 @@ st.markdown("<p style='text-align: center;'>Sube un archivo con tus clientes y a
 
 # --------- INGRESO DE API Y ARCHIVO ---------
 api_key = st.text_input("🔑 Ingresa tu API Key de Google Maps", type="password")
-uploaded_file = st.file_uploader("📁 Cargar archivo CSV", type="csv")
+uploaded_file = st.file_uploader("📁 Cargar archivo Excel", type="xlsx")
 
 # Control de estado para evitar ejecuciones repetidas
 if 'procesado' not in st.session_state:
@@ -60,7 +60,7 @@ if 'procesado' not in st.session_state:
 
 # Si el usuario carga archivo y API, y aún no se ha procesado
 if uploaded_file and api_key and not st.session_state.procesado:
-    df = pd.read_csv(uploaded_file, dtype=str)
+    df = pd.read_excel(uploaded_file, dtype=str)
     df.columns = df.columns.str.strip()
 
     latitudes = []
@@ -100,7 +100,7 @@ if uploaded_file and api_key and not st.session_state.procesado:
 
         # Botón para descargar archivo Excel
         st.download_button(
-            label="⬇️ Descargar archivo procesado (.xlsx)",
+            label="⬇️ Descargar nuevo archivo Excel optimizado",
             data=excel_file,
             file_name='clientes_ruteados.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
