@@ -48,7 +48,7 @@ def convertir_excel(df):
 st.set_page_config(page_title="Geolocalizador de Clientes", page_icon="📍", layout="centered")
 
 st.markdown("<h1 style='text-align: center; color: #4CAF50;'>📍 Geolocalización de clientes</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Sube un archivo con tus clientes y agrupalos por cercania</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Sube un archivo Excel con tus clientes y agrúpalos por cercanía</p>", unsafe_allow_html=True)
 
 # --------- INGRESO DE API Y ARCHIVO ---------
 api_key = st.text_input("🔑 Ingresa tu API Key de Google Maps", type="password")
@@ -71,7 +71,8 @@ if uploaded_file and api_key and not st.session_state.procesado:
     status_text = st.empty()
 
     for i, row in df.iterrows():
-        full_address = f"{row['Dir. Suministro']}, {row['C.P.']}, {row['Población']}, {row['Provincia']}"
+        # 👉 Aquí usamos solo direccion y ciudad
+        full_address = f"{row['direccion']}, {row['ciudad']}"
         lat, lng = get_coordinates(full_address, api_key)
         latitudes.append(lat)
         longitudes.append(lng)
