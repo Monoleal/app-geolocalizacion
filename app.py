@@ -71,8 +71,8 @@ if uploaded_file and api_key and not st.session_state.procesado:
     status_text = st.empty()
 
     for i, row in df.iterrows():
-        # 👉 Aquí usamos solo direccion y ciudad
-        full_address = f"{row['direccion']}, {row['ciudad']}"
+        # 👉 Ahora agregamos C.P. y Provincia para más precisión
+        full_address = f"{row['direccion']}, {row['C.P.']}, {row['ciudad']}, {row['Provincia']}"
         lat, lng = get_coordinates(full_address, api_key)
         latitudes.append(lat)
         longitudes.append(lng)
